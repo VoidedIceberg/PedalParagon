@@ -1,0 +1,55 @@
+﻿@page "/RefreshData"
+@using PedalParagon.Model
+@using PedalParagon.Util
+
+@inject DataService DataService
+
+<h3>RefreshData</h3>
+
+<MudTextField @bind-Value="SearchTerm" Placeholder="Search..." Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" />
+
+<MudButton Variant="Variant.Filled" OnClick="UpdateStationInfoList">Update Station Info</MudButton>
+<MudButton Variant="Variant.Filled" OnClick="UpdateSensorStatusList">Update Station Status</MudButton>
+
+<MudGrid>
+    @foreach (var station in FilteredStations)
+    {
+        <MudItem xs="12" sm="6" md="4">
+            <MudCard>
+                <MudCardContent>
+                    <h4>@station.name</h4>
+                    <p><strong>Active</strong> @DataService.GetStationStatusById(station.station_id).is_renting</p>
+                    <p><strong>Station ID:</strong> @station.station_id</p>
+                    <p><strong>Latitude:</strong> @station.lat</p>
+                    <p><strong>Longitude:</strong> @station.lon</p>
+                    <p><strong>Capacity:</strong> @station.capacity</p>
+                    <p><strong>Available:</strong> @DataService.GetStationStatusById(station.station_id).num_bikes_available</p>
+                    <p><strong><MudLink Href=@station.GoogleMapsUrl>Maps link</MudLink></strong></p>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+    }
+</MudGrid>
+
+@code {
+    private string SearchTerm { get; set; } = string.Empty;
+
+    private IEnumerable<StationInfoModel> FilteredStations => DataService.StationInfoList
+        .Where(station => string.IsNullOrWhiteSpace(SearchTerm) ||
+                          station.name.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase) ||
+                          station.station_id.ToString().Contains(SearchTerm, StringComparison.OrdinalIgnoreCase) ||
+                          station.lat.ToString().Contains(SearchTerm, StringComparison.OrdinalIgnoreCase) ||
+                          station.lon.ToString().Contains(SearchTerm, StringComparison.OrdinalIgnoreCase) ||
+                          station.capacity.ToString().Contains(SearchTerm, StringComparison.OrdinalIgnoreCase) ||
+                          DataService.GetStationStatusById(station.station_id).num_bikes_available.ToString().Contains(SearchTerm, StringComparison.OrdinalIgnoreCase));
+
+    private void UpdateStationInfoList()
+    {
+        DataService.UpdateStationInfo();
+    }
+
+    private void UpdateSensorStatusList()
+    {
+        DataService.UpdateStationStatus();
+    }
+}

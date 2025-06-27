@@ -1,0 +1,20 @@
+﻿@page "/"  
+@using MudBlazor  
+@using PedalParagon.Model  
+@using PedalParagon.Util  
+
+
+<button @onclick="GetLocation">Get Location</button>
+
+<p>@locationInfo</p>
+
+
+@code {
+    string locationInfo;
+
+    async Task GetLocation()
+    {
+        var loc = await Geolocation.GetLocationAsync();
+        locationInfo = $"Lat: {loc?.Latitude}, Lon: {loc?.Longitude} acracy:{loc?.Accuracy}";
+    }
+}

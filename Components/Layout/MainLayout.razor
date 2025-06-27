@@ -1,0 +1,48 @@
+﻿@inherits LayoutComponentBase
+
+<MudThemeProvider Theme="_theme" />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+    <MudAppBar Elevation="0">
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+        <MudText Align="Align.Center">Pedal Paragon: Blue Bike Hero</MudText>
+    </MudAppBar>
+    <MudDrawer @bind-Open="_drawerOpen" Elevation="1">
+        <MudDrawerHeader>
+            <MudText Typo="Typo.h6">Pedal Paragon</MudText>
+        </MudDrawerHeader>
+        <NavMenu />
+    </MudDrawer>
+    <MudMainContent>
+        <MudContainer MaxWidth="MaxWidth.Large" Class="my-5 pt-5">
+            @Body
+        </MudContainer>
+    </MudMainContent>
+</MudLayout>
+
+@code {  
+    bool _drawerOpen = true;  
+
+    MudTheme _theme = new MudTheme()
+    {
+        PaletteLight = new PaletteLight()
+        {
+            Primary = Colors.Orange.Default,
+            Secondary = Colors.LightBlue.Accent4,
+            AppbarBackground = Colors.DeepOrange.Default,
+        },
+        PaletteDark = new PaletteDark()
+        {
+            Primary = Colors.Orange.Default,
+            Secondary = Colors.Blue.Accent4,
+            AppbarBackground = Colors.DeepOrange.Default,
+        },
+    };
+
+    void DrawerToggle()  
+    {  
+        _drawerOpen = !_drawerOpen;  
+    }  
+}
