@@ -18,5 +18,15 @@ namespace PedalParagon.Model
         public int is_renting { get; set; }
         public bool eightd_has_available_keys { get; set; }
         public int num_ebikes_available { get; set; }
+
+
+
+        public double LocationFromMe { get; set; }
+
+
+        /// <summary>
+        /// This property is from -1 to 1 where -1 means that the station needs a bike and 1 means the station need to loose a bike.
+        /// </summary>
+        public double DocDesperationScore { get; set; }
     }
 }
