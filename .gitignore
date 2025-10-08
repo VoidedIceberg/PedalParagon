@@ -1,3 +1,4 @@
-/.vs
-/bin
-/obj
+/BlueBikeWearApp/bin
+/BlueBikeWearApp/obj
+/PedalLib/bin
+/PedalLib/obj

@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <!-- Remove obsolete property -->
+    <!-- <AndroidSupportedAbis>armeabi-v7a;armeabi</AndroidSupportedAbis> -->
+
+    <!-- Let tooling choose the correct ABI; only specify if you truly need to publish multiple. -->
+    <!-- For a 32‑bit only device keep android-arm. If you later target modern devices add android-arm64. -->
+    <RuntimeIdentifiers>android-arm</RuntimeIdentifiers>
+
+    <TargetFramework>net9.0-android36.0</TargetFramework>
+    <SupportedOSPlatformVersion>24</SupportedOSPlatformVersion>
+
+    <OutputType>Exe</OutputType>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+
+    <ApplicationId>com.VoidedIceberg.BlueBikeWearApp</ApplicationId>
+    <ApplicationVersion>1</ApplicationVersion>
+    <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+
+    <MSBuildWarningsAsMessages>$(MSBuildWarningsAsMessages);XA4218</MSBuildWarningsAsMessages>
+
+    <!-- Only trim in Release to avoid unexpected removals during debugging -->
+    <TrimMode Condition="'$(Configuration)' == 'Release'">full</TrimMode>
+
+    <!-- Disable Fast Deployment (eliminates XA0129 from file-by-file pushes) -->
+    <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
+    <!-- Also disable the shared runtime to keep everything self-contained -->
+    <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Xamarin.AndroidX.Wear" Version="1.3.0.15" />
+    <PackageReference Include="Xamarin.AndroidX.RecyclerView" Version="1.4.0.3" />
+    <PackageReference Include="Xamarin.GooglePlayServices.Location" Version="121.3.0.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PedalLib\PedalLib.csproj" />
+  </ItemGroup>
+</Project>
