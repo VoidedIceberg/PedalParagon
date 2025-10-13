@@ -28,6 +28,14 @@
     <!-- Also disable the shared runtime to keep everything self-contained -->
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
   </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Resources\icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Xamarin.AndroidX.Wear" Version="1.3.0.15" />
